@@ -88,43 +88,6 @@ class Neuron:
 #		else:
 #			return 0 # sum == 0
 
-# Standard input neuron that outputs
-# a constant value regardless of input
-# Can be used as a bias.
-#class InputNeuron(Neuron):
-#	def __init__(self, input, inputs = list(), outputs = list()):
-#		self.input = input
-#		super(Neuron, self).__init__(inputs, outputs)
-#	
-#	def activation(self, sum):
-#		return self.input
-#
-#	def activationGradient(self):
-#		return 0
-
-# Standard output neuron that sums
-# up its inputs * weights and then
-# directly outputs it.
-# So output() is not touched by any destructive
-# or limiting activation function.
-#
-# This output neuron is for analog learning
-# only, which is not recommended.
-# A better way is to see if it fires or not,
-# and to what extent.
-#class OutputNeuron(Neuron):
-#	def activation(self, sum):
-#		return sum
-#
-#	def activationGradient(self):
-#		output = self.output
-#
-#		sum = 0
-#		for output in self.outputs:
-#			sum += output.gradient
-#
-#		return sum
-
 # Standard weighted perceptron input
 # IN Node (External of owner neuron)
 # Must only belong to one neuron
@@ -192,15 +155,6 @@ class Teacher:
 			
 			if nodeGradient[0].prevOutput is not None:
 				self.backward(nodeGradient[0].prevOutput) # To be optimized
-	
-	# Don't call this repeatedly, very slow.
-#	def teachStepSingle(self, gradient):
-#		temp = list()
-#		for output in self.network.outputs:
-#			for outputNode in output.outputs:
-#				temp.append(outputNode, gradient)
-#		
-#		self.teachStep(temp)
 
 	# Teaching lesson format
 	#
@@ -231,11 +185,3 @@ class Teacher:
 				temp.append([outputNode[0], 1 if outputNode[1] > outputNode[0].value else (-1 if outputNode[1] < outputNode[0].value else 0)])
 
 			self.teachStep(temp)
-	
-#	def teachSingle(self, value, steps):
-#		temp = list()
-#		for output in self.network.outputs:
-#			for outputNode in output.outputs:
-#				temp.append([outputNode, value])
-#
-#		self.teach(temp, steps)

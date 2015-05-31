@@ -17,26 +17,28 @@ network = neural.Network(inputs=[neuron], outputs=[neuron])
 
 # Teach network
 
-teacher = neural.Teacher(network=network, step=0.001)
+a = 13
+
+teacher = neural.Teacher(network=network, step=0.005)
 teacher.teach(values=[
 		{"inputs": [
 				[inputN1, 0],
 				[inputN2, 0],
 			],
 		"outputs": [
-				[outputN, 0]
+				[outputN, 1]
 			]
 		},
 		{"inputs": [
 				[inputN1, 0],
-				[inputN2, 1],
+				[inputN2, 1 * a],
 			],
 		"outputs": [
 				[outputN, 0]
 			]
 		},
 		{"inputs": [
-				[inputN1, 1],
+				[inputN1, 1 * a],
 				[inputN2, 0],
 			],
 		"outputs": [
@@ -44,11 +46,11 @@ teacher.teach(values=[
 			]
 		},
 		{"inputs": [
-				[inputN1, 1],
-				[inputN2, 1],
+				[inputN1, 1 * a],
+				[inputN2, 1 * a],
 			],
 		"outputs": [
-				[outputN, 1]
+				[outputN, 0]
 			]
 		}
 	]
@@ -68,16 +70,16 @@ inputN2.value = 0
 print "00:", network.output()[0][1]
 
 inputN1.value = 0
-inputN2.value = 1
+inputN2.value = 1 * a
 
 print "01:", network.output()[0][1]
 
-inputN1.value = 1 
+inputN1.value = 1 * a
 inputN2.value = 0
 
 print "10:", network.output()[0][1]
 
-inputN1.value = 1
-inputN2.value = 1
+inputN1.value = 1 * a
+inputN2.value = 1 * a
 
 print "11:", network.output()[0][1]
